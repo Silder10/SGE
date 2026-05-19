@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Editar Evento — S.G.E</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('events.panel_organizador') }}">Inicio</a>
+                <a href="{{ url_for('events.create_event') }}">Crear evento</a>
+                <a href="{{ url_for('events.listar_eventos') }}" class="active">Mis eventos</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="form-page-wrapper">
+                <div class="form-page-header">
+                    <h2>Editar evento</h2>
+                    <p>Modifica los datos del evento</p>
+                </div>
+                <div class="form-card">
+                    <form method="POST" class="event-form">
+                        <div class="field-group">
+                            <label for="title">Título del evento</label>
+                            <input type="text" id="title" name="title" value="{{ evento.titulo }}" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="description">Descripción</label>
+                            <textarea id="description" name="description" rows="4" required>{{ evento.descripcion }}</textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="date">Fecha</label>
+                                <input type="date" id="date" name="date" value="{{ evento.fecha.strftime('%Y-%m-%d') }}" required>
+                            </div>
+                            <div class="field-group">
+                                <label for="capacity">Capacidad máxima</label>
+                                <input type="number" id="capacity" name="capacity" value="{{ evento.capacidad }}" min="1" required>
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label for="category">Categoría</label>
+                            <input type="text" id="category" name="category" value="{{ evento.categoria }}" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <a href="{{ url_for('events.listar_eventos') }}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

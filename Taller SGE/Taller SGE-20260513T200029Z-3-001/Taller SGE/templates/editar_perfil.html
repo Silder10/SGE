@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Editar Perfil — S.G.E</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('users.panel_asistente') }}">Inicio</a>
+                <a href="{{ url_for('events.eventos_a') }}">Eventos</a>
+                <a href="{{ url_for('users.mis_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('users.perfil') }}" class="active">Perfil</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="form-page-wrapper">
+                <div class="form-page-header">
+                    <h2>Editar perfil</h2>
+                    <p>Actualiza tu información personal</p>
+                </div>
+                <div class="form-card">
+                    <form method="POST" class="auth-form">
+                        <div class="field-group">
+                            <label for="username">Nombre de usuario</label>
+                            <input type="text" id="username" name="username" value="{{ usuario.username }}" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="bio">Biografía <span class="label-hint">(opcional)</span></label>
+                            <textarea id="bio" name="bio" rows="4" placeholder="Cuéntanos algo sobre ti...">{{ usuario.bio }}</textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <a href="{{ url_for('users.perfil') }}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('users.panel_asistente') }}">Inicio</a>
+                <a href="{{ url_for('events.eventos_a') }}">Eventos</a>
+                <a href="{{ url_for('users.mis_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('users.perfil') }}">Perfil</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            {% with mensajes = get_flashed_messages(with_categories=true) %}
+
+            {% if mensajes %}
+
+            {% for categoria, mensaje in mensajes %}
+
+            <div class="mensaje {{ categoria }}">
+                <p>{{ mensaje }}</p>
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+            {% endwith %}
+
+            <section>
+                <h2>Mi Perfil</h2>
+            </section>
+
+            <section class="perfil-card">
+                <h3>Nombre de usuario</h3>
+
+                <p>{{ usuario.username }}</p>
+
+                <h3>Correo electrónico</h3>
+
+                <p>{{ usuario.email }}</p>
+
+                <h3>Biografía</h3>
+
+                <p>{{ usuario.bio }}</p>
+            </section>
+
+            <section>
+                <a href="{{ url_for('users.editar_perfil') }}">
+                    <button>Editar perfil</button>
+                </a>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

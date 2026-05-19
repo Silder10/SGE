@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Panel Organizador — S.G.E</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('events.panel_organizador') }}" class="active">Inicio</a>
+                <a href="{{ url_for('events.create_event') }}">Crear evento</a>
+                <a href="{{ url_for('events.listar_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                {% for categoria, mensaje in mensajes %}
+                <div class="mensaje {{ categoria }}"><p>{{ mensaje }}</p></div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="panel-welcome">
+                <div>
+                    <p class="welcome-eyebrow">Panel del Organizador</p>
+                    <h2>¡Hola, {{ current_user.username }}!</h2>
+                    <p>Gestiona tus eventos y revisa quiénes se han inscrito.</p>
+                </div>
+            </div>
+
+            <p class="section-label">Acciones rápidas</p>
+            <div class="quick-actions-grid">
+                <a href="{{ url_for('events.create_event') }}" class="action-tile action-tile--primary">
+                    <span class="action-tile-icon">➕</span>
+                    <span class="action-tile-title">Crear evento</span>
+                    <span class="action-tile-desc">Publica un nuevo evento</span>
+                </a>
+                <a href="{{ url_for('events.listar_eventos') }}" class="action-tile">
+                    <span class="action-tile-icon">📋</span>
+                    <span class="action-tile-title">Mis eventos</span>
+                    <span class="action-tile-desc">Ver, editar y eliminar eventos</span>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestión de Eventos</h1>
+        <nav>
+            <a href="{{ url_for('events.panel_organizador') }}">Inicio</a>
+            <a href="{{ url_for('events.create_event') }}">Crear evento</a>
+            <a href="{{ url_for('events.listar_eventos') }}">Mis eventos</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h1>Lista de Eventos</h1>
+            </section>
+            {% for evento in eventos %}
+            <section>
+                <h2>{{ evento.titulo }}</h2>
+
+                <p>
+                    <strong>Descripción:</strong>
+                    {{ evento.descripcion }}
+                </p>
+
+                <p>
+                    <strong>Fecha:</strong>
+                    {{ evento.fecha }}
+                </p>
+
+                <p>
+                    <strong>Capacidad:</strong>
+                    {{ evento.capacidad }}
+                </p>
+
+                <p>
+                    <strong>Categoría:</strong>
+                    {{ evento.categoria }}
+                </p>
+
+                {% if current_user.is_authenticated %}
+
+                {% if current_user.id == evento.organizador_id %}
+
+                <a href="{{ url_for('events.ver_inscritos', id=evento.id) }}">
+                    <button>Ver inscritos</button>
+                </a>
+
+                <a href="{{ url_for('events.editar_ev', id=evento.id) }}">
+                    <button>Editar</button>
+                </a>
+
+                <a href="{{ url_for('events.eliminar_evento', id=evento.id) }}">
+                    <button>Eliminar</button>
+                </a>
+
+                {% endif %}
+
+                {% endif %}
+            </section>
+
+            {% endfor %}
+
+            <section>
+                <a href="{{url_for('events.panel_organizador')}}">
+                    <button>Volver</button>
+                </a>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

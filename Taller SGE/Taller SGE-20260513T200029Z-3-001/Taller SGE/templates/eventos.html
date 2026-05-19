@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Disponibles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+
+            <nav>
+                <a href="{{ url_for('users.panel_asistente') }}">Inicio</a>
+                <a href="{{ url_for('events.eventos_a') }}">Eventos</a>
+                <a href="{{ url_for('users.mis_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('users.perfil') }}">Perfil</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2>Eventos Disponibles</h2>
+            </section>
+
+            <section>
+                <form method="GET">
+                    <input type="text" name="busqueda" placeholder="Buscar evento" value="{{ busqueda }}">
+                    <select name="categoria">
+                        <option value="">Todas las categorías</option>
+                        {% for cat in categorias %}
+                        <option value="{{ cat.categoria }}" {% if categoria==cat.categoria %} selected {% endif %}>
+                            {{ cat.categoria }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Buscar</button>
+                </form>
+            </section>
+
+            <section>
+                {% if eventos %}
+
+                {% for evento in eventos %}
+                <section>
+                    <h3>{{ evento.titulo }}</h3>
+
+                    <p>
+                        <strong>Descripción:</strong>
+                        {{ evento.descripcion }}
+                    </p>
+
+                    <p>
+                        <strong>Categoría:</strong>
+                        {{ evento.categoria }}
+                    </p>
+
+                    <p>
+                        <strong>Fecha:</strong>
+                        {{ evento.fecha }}
+                    </p>
+
+                    <p>
+                        <strong>Capacidad:</strong>
+                        {{ evento.capacidad }}
+                    </p>
+
+                    <a href="{{ url_for('events.detalle_evento', id=evento.id) }}">
+                        <button>Ver detalles</button>
+                    </a>
+                </section>
+                {% endfor %}
+
+                {% else %}
+                <section>
+                    <p>No se encontraron eventos.</p>
+                </section>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+
+    <div class="cookies-banner" id="cookiesBanner">
+        
+        Este sitio utiliza cookies para mejorar la experiencia del usuario.
+
+        <button onclick="aceptarCookies()">Aceptar</button>
+    </div>
+
+    <script>
+        function aceptarCookies() {
+
+            document.cookie =
+                "cookies_aceptadas=true; path=/";
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+
+        if (
+            document.cookie.includes(
+                "cookies_aceptadas=true"
+            )
+        ) {
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+    </script>
+</body>
+</html>

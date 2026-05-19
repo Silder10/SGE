@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Evento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('users.panel_asistente') }}">Inicio</a>
+                <a href="{{ url_for('events.eventos_a') }}">Eventos</a>
+                <a href="{{ url_for('users.mis_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('users.perfil') }}">Perfil</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% with mensajes = get_flashed_messages(with_categories=true) %}
+
+            {% if mensajes %}
+
+            {% for categoria, mensaje in mensajes %}
+            <div class="mensaje {{ categoria }}">
+                <p>{{ mensaje }}</p>
+            </div>
+            {% endfor %}
+
+            {% endif %}
+
+            {% endwith %}
+            <section>
+                <h2>{{ evento.titulo }}</h2>
+
+                <p>
+                    <strong>Descripción:</strong>
+                    {{ evento.descripcion }}
+                </p>
+
+                <p>
+                    <strong>Fecha:</strong>
+                    {{ evento.fecha }}
+                </p>
+
+                <p>
+                    <strong>Categoría:</strong>
+                    {{ evento.categoria }}
+                </p>
+
+                <p>
+                    <strong>Capacidad máxima:</strong>
+                    {{ evento.capacidad }}
+                </p>
+
+                <p>
+                    <strong>Cupos disponibles:</strong>
+                    {{ cupos_disponibles }}
+                </p>
+
+                <p>
+                    <strong>Personas inscritas:</strong>
+                    {{ inscritos }}
+                </p>
+            </section>
+
+            <section>
+                {% if usuario_inscrito %}
+                <a href="{{ url_for('events.cancelar_inscripcion', id=evento.id) }}">
+                    <button>Cancelar inscripción</button>
+                </a>
+                {% else %}
+
+                {% if cupos_disponibles > 0 %}
+                <a href="{{ url_for('events.inscribirse_evento', id=evento.id) }}">
+                    <button>Inscribirme</button>
+                </a>
+                {% else %}
+                <p>No hay cupos disponibles.</p>
+                {% endif %}
+
+                {% endif %}
+            </section>
+        </div>
+    </main>
+</body>
+</html>

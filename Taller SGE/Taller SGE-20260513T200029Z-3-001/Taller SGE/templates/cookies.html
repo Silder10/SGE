@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="cookies-banner" id="cookiesBanner">
+        
+        Este sitio utiliza cookies para mejorar la experiencia del usuario.
+
+        <button onclick="aceptarCookies()">Aceptar</button>
+    </div>
+
+    <script>
+        function aceptarCookies() {
+
+            document.cookie =
+                "cookies_aceptadas=true; path=/";
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+
+        if (
+            document.cookie.includes(
+                "cookies_aceptadas=true"
+            )
+        ) {
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Panel — S.G.E</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Gestión de Eventos</h1>
+            <nav>
+                <a href="{{ url_for('users.panel_asistente') }}" class="active">Inicio</a>
+                <a href="{{ url_for('events.eventos_a') }}">Eventos</a>
+                <a href="{{ url_for('users.mis_eventos') }}">Mis eventos</a>
+                <a href="{{ url_for('users.perfil') }}">Perfil</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="panel-welcome">
+                <div>
+                    <p class="welcome-eyebrow">Panel del Asistente</p>
+                    <h2>¡Hola, {{ current_user.username }}!</h2>
+                    <p>Aquí tienes un resumen de tu actividad en S.G.E.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-body">
+                        <span class="stat-label">Eventos disponibles</span>
+                        <span class="stat-number">{{ eventos_disponibles }}</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--accent">
+                    <div class="stat-icon">🎟️</div>
+                    <div class="stat-body">
+                        <span class="stat-label">Eventos inscritos</span>
+                        <span class="stat-number">{{ eventos_inscritos }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-label">Acciones rápidas</p>
+            <div class="quick-actions-grid">
+                <a href="{{ url_for('events.eventos_a') }}" class="action-tile">
+                    <span class="action-tile-icon">🔍</span>
+                    <span class="action-tile-title">Explorar eventos</span>
+                    <span class="action-tile-desc">Encuentra eventos disponibles</span>
+                </a>
+                <a href="{{ url_for('users.mis_eventos') }}" class="action-tile">
+                    <span class="action-tile-icon">📋</span>
+                    <span class="action-tile-title">Mis inscripciones</span>
+                    <span class="action-tile-desc">Ver eventos en los que estoy</span>
+                </a>
+                <a href="{{ url_for('users.perfil') }}" class="action-tile">
+                    <span class="action-tile-icon">👤</span>
+                    <span class="action-tile-title">Mi perfil</span>
+                    <span class="action-tile-desc">Ver y editar mi información</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div class="cookies-banner" id="cookiesBanner">
+        Este sitio utiliza cookies para mejorar la experiencia del usuario.
+        <button onclick="aceptarCookies()">Aceptar</button>
+    </div>
+    <script>
+        function aceptarCookies() {
+            document.cookie = "cookies_aceptadas=true; path=/";
+            document.getElementById("cookiesBanner").style.display = "none";
+        }
+        if (document.cookie.includes("cookies_aceptadas=true")) {
+            document.getElementById("cookiesBanner").style.display = "none";
+        }
+    </script>
+</body>
+</html>

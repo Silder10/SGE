@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Iniciar sesión — S.G.E</title>
+</head>
+<body>
+    <main>
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                {% for categoria, mensaje in mensajes %}
+                <div class="mensaje {{ categoria }}"><p>{{ mensaje }}</p></div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <span class="auth-logo">S.G.E</span>
+                    <h1>Bienvenido</h1>
+                    <p>Inicia sesión para continuar</p>
+                </div>
+                <form method="POST" class="auth-form">
+                    <div class="field-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="text" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Iniciar sesión</button>
+                </form>
+                <div class="auth-footer">
+                    <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

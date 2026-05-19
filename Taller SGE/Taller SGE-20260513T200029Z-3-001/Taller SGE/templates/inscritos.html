@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Inscritos &mdash; S.G.E</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>S.G.E</h1>
+            <nav>
+                <a href="{{ url_for('events.panel_organizador') }}">Inicio</a>
+                <a href="{{ url_for('events.create_event') }}">Crear evento</a>
+                <a href="{{ url_for('events.listar_eventos') }}" class="active">Mis eventos</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar sesi&oacute;n</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="panel-welcome">
+                <div>
+                    <p class="welcome-eyebrow">Lista de inscritos</p>
+                    <h2>{{ evento.titulo }}</h2>
+                    <p>Personas registradas en este evento</p>
+                </div>
+                <a href="{{ url_for('events.listar_eventos') }}" class="btn btn-secondary">&larr; Volver</a>
+            </div>
+
+            {% if inscritos %}
+            <div class="inscritos-table-wrap">
+                <table class="tabla-inscritos">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Usuario</th>
+                            <th>Correo electr&oacute;nico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in inscritos %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ registro.usuarios.username }}</strong></td>
+                            <td>{{ registro.usuarios.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <p style="font-size:2.5rem;margin-bottom:0.75rem;">&#128100;</p>
+                <p>No hay inscritos en este evento todav&iacute;a.</p>
+            </div>
+            {% endif %}
+
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>S.G.E — Sistema de Gestión de Eventos</title>
+</head>
+
+<body class="landing">
+    <main>
+        <section class="hero">
+            <div class="hero-eyebrow">Sistema de Gestión de Eventos</div>
+            <h1 class="hero-title">Bienvenido al<br>S.G.E</h1>
+            <div class="hero-actions">
+                <a href="{{ url_for('auth.registro') }}" class="btn btn-primary">Crear cuenta</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-ghost">Ya tengo cuenta →</a>
+            </div>
+        </section>
+    </main>
+    <footer class="landing-footer">
+        <p>© 2026 S.G.E — Sistema de Gestión de Eventos</p>
+    </footer>
+    <div class="cookies-banner" id="cookiesBanner">
+
+        Este sitio utiliza cookies para mejorar la experiencia del usuario.
+
+        <button onclick="aceptarCookies()">Aceptar</button>
+    </div>
+    <script>
+        function aceptarCookies() {
+
+            document.cookie =
+                "cookies_aceptadas=true; path=/";
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+
+        if (
+            document.cookie.includes(
+                "cookies_aceptadas=true"
+            )
+        ) {
+
+            document.getElementById(
+                "cookiesBanner"
+            ).style.display = "none";
+
+        }
+    </script>
+</body>
+
+</html>
